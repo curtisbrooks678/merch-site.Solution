@@ -14,11 +14,11 @@ function ReusableForm(props) {
           name="description"
           placeholder="description of item"/>
         <input
-          min="1"
+          min="0"
           type="number"
           name="quantity"
           placeholder="Quantity of item"/>
-        <button type="submit">{props.buttonText}</button>
+        <button type="submit" className={props.buttonStyle}> {props.buttonText} </button>
       </form>
     </React.Fragment>
   );

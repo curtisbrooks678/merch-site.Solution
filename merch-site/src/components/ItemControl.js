@@ -2,6 +2,8 @@ import React from 'react';
 import ItemList from './ItemList';
 import NewItemForm from './NewItemForm';
 import ItemDetail from "./ItemDetail";
+import EditItemForm from "./EditItemForm";
+
 
 class ItemControl extends React.Component {
 
@@ -10,8 +12,9 @@ class ItemControl extends React.Component {
     this.state = {
       formVisibleOnPage: false,
       mainItemList: [],
-      selectedItem: null
-    }
+      selectedItem: null,
+      editing: false
+    };
   }
 
   handleClick = () => {
@@ -52,13 +55,26 @@ class ItemControl extends React.Component {
     this.setState({selectedItem: selectedItem});
   }
 
+  handleEditingItemInList = (itemToEdit) => {
+    const editedMainItemList = this.state.mainItemList.filter(item => item.id !== this.state.selectedItem.id).concat(itemToEdit);
+    this.setState({
+      mainItemList: editedMainItemList,
+      editing: false,
+      selectedItem: null
+    });
+  }
+
   render(){
     let currentlyVisibleState = null;
     let buttonText = null;
     let buttonStyle = null;
 
-    if (this.state.selectedItem != null) {
-      currentlyVisibleState = <ItemDetail item = {this.state.selectedItem} onClickingDelete = {this.this.handleDeleteItem} onClickingEdit = {this.handleEditClick} />
+    if (this.state.editing){
+      currentlyVisibleState = <EditItemForm item = {this.state.selectedItem} onEditItem = {this.handleEditingItemInList} />
+      buttonText = "Return to Item List";
+      buttonStyle = "btn btn-warning";
+    } else if(this.state.selectedItem != null) {
+      currentlyVisibleState = <ItemDetail item = {this.state.selectedItem} onClickingDelete = {this.handleDeleteItem} onClickingEdit = {this.handleEditClick} />
       buttonText = "Return to Item List";
       buttonStyle = "btn btn-warning";
     } else if (this.state.formVisibleOnPage) {

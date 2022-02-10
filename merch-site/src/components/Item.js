@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 function Item(props){
 
   function checkQ(){
-    if(props.quantity === 0) {
+    if(props.quantity === "0") {
       return "Item out of stock";
     } else {
       return "";
@@ -27,7 +27,7 @@ function Item(props){
 Item.propTypes = {
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  quantity: PropTypes.number,
+  quantity: PropTypes.string,
   id: PropTypes.string,
   whenItemClicked: PropTypes.func
 }
