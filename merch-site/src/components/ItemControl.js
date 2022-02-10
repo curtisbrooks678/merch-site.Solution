@@ -13,7 +13,7 @@ class ItemControl extends React.Component {
       formVisibleOnPage: false,
       mainItemList: [],
       selectedItem: null,
-      editing: false
+      editing: false,
     };
   }
 
@@ -44,6 +44,22 @@ class ItemControl extends React.Component {
     });
   }
 
+  // handleAddQuantityClick = (itemToAddQuantity) => {
+  //   // const selectedItem = this.state.mainItemList.filter(item => item.id === id)[0];
+  //   // console.log(selectedItem.quantity);
+  //   // console.log(selectedItemQuantity);
+  //   // this.setState({currentQuantity: selectedItemQuantity});
+
+  // //   const newQuantity = (parseInt(itemToAddQuantity.quantity) + 1);
+  // //   parseInt(itemToAddQuantity.quantity) = newQuantity;
+  // //   const editedMainItemList = this.state.mainItemList.filter(item => item.id !== this.state.selectedItem.id).concat(itemToAddQuantity.quantity.toString());
+  // //   this.setState({
+  // //     mainItemList: editedMainItemList,
+  // //     editing: false,
+  // //     selectedItem: null
+  // //   });
+  // // } 
+
   handleAddingNewItemToList = (newItem) => {
     const newMainItemList = this.state.mainItemList.concat(newItem);
     this.setState({mainItemList: newMainItemList,
@@ -72,11 +88,11 @@ class ItemControl extends React.Component {
     if (this.state.editing){
       currentlyVisibleState = <EditItemForm item = {this.state.selectedItem} onEditItem = {this.handleEditingItemInList} />
       buttonText = "Return to Item List";
-      buttonStyle = "btn btn-warning";
+      buttonStyle = "btn btn-warning mt-2";
     } else if(this.state.selectedItem != null) {
-      currentlyVisibleState = <ItemDetail item = {this.state.selectedItem} onClickingDelete = {this.handleDeleteItem} onClickingEdit = {this.handleEditClick} />
+      currentlyVisibleState = <ItemDetail item = {this.state.selectedItem} onClickingDelete = {this.handleDeleteItem} onClickingEdit = {this.handleEditClick} onClickingAddQuantity = {this.handleAddQuantityClick}/>
       buttonText = "Return to Item List";
-      buttonStyle = "btn btn-warning";
+      buttonStyle = "btn btn-warning mt-2";
     } else if (this.state.formVisibleOnPage) {
       currentlyVisibleState = <NewItemForm onNewItemCreation={this.handleAddingNewItemToList} />;
       buttonText = "Return to Item List";
@@ -84,7 +100,7 @@ class ItemControl extends React.Component {
     } else {
       currentlyVisibleState = <ItemList itemList={this.state.mainItemList} onItemSelection={this.handleChangingSelectedItem}/>;
       buttonText = "Add a new item!";
-      buttonStyle = "btn btn-info";
+      buttonStyle = "btn btn-info mt-2";
     }
 
     return (
